@@ -1,5 +1,6 @@
 # BoundLayout
-A lightweight FrameLayout which can have a maximum / minimum width and height.
+
+A lightweight FrameLayout which can have a maximum / minimum width and height, simple as that.
 
 ![Demo screen](https://github.com/flschweiger/BoundLayout/blob/master/art/screen1.jpg)  
 
