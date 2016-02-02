@@ -2,6 +2,9 @@
 
 A lightweight FrameLayout which can have a maximum / minimum width and height, simple as that.
 
+[![Download](https://api.bintray.com/packages/flschweiger/maven/boundlayout/images/download.svg) ](https://bintray.com/flschweiger/maven/boundlayout/_latestVersion) 
+[![License Apache](https://img.shields.io/badge/license-Apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+
 ![Demo screen](https://github.com/flschweiger/BoundLayout/blob/master/art/screen1.jpg)  
 
 ## Attributes ##
