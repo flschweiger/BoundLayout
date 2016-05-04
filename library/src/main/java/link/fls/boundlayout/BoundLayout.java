@@ -26,6 +26,7 @@ public class BoundLayout extends FrameLayout {
 
     private static final int NO_WIDTH = -1;
 
+    private boolean mKeepAspectRatio;
     private int mMaxWidth;
     private int mMaxHeight;
     private int mMinWidth;
@@ -49,6 +50,7 @@ public class BoundLayout extends FrameLayout {
                 .obtainStyledAttributes(attributeSet, R.styleable.BoundLayout);
 
         try {
+            mKeepAspectRatio = attrs.getBoolean(R.styleable.BoundLayout_keepAspectRatio, false);
             mMaxWidth = attrs.getDimensionPixelSize(R.styleable.BoundLayout_maxWidth, NO_WIDTH);
             mMaxHeight = attrs.getDimensionPixelSize(R.styleable.BoundLayout_maxHeight, NO_WIDTH);
             mMinWidth = attrs.getDimensionPixelSize(R.styleable.BoundLayout_minWidth, NO_WIDTH);
@@ -95,26 +97,69 @@ public class BoundLayout extends FrameLayout {
 
         }
 
+        int newWidth = measuredWidth;
+        int newHeight = measuredHeight;
+
         if (mMaxWidth != NO_WIDTH && mMaxWidth < measuredWidth) {
-            widthMeasureSpec = MeasureSpec.makeMeasureSpec(
-                    mMaxWidth,
-                    MeasureSpec.getMode(widthMeasureSpec));
+            newWidth = mMaxWidth;
         } else if (mMinWidth != NO_WIDTH && mMinWidth > measuredWidth) {
-            widthMeasureSpec = MeasureSpec.makeMeasureSpec(
-                    mMinWidth,
-                    MeasureSpec.getMode(widthMeasureSpec));
+            newWidth = mMinWidth;
         }
 
         if (mMaxHeight != NO_WIDTH && mMaxHeight < measuredHeight) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                    mMaxHeight,
-                    MeasureSpec.getMode(heightMeasureSpec));
+            newHeight = mMaxHeight;
         } else if (mMinHeight != NO_WIDTH && mMinHeight > measuredHeight) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                    mMinHeight,
-                    MeasureSpec.getMode(heightMeasureSpec));
+            newHeight = mMinHeight;
         }
 
+        if (mKeepAspectRatio) {
+            float dScaleWidth = 1f;
+            float dScaleHeight = 1f;
+
+            if (mMinWidth != NO_WIDTH && mMinHeight != NO_WIDTH && mMinHeight > 0) {
+
+                if (measuredWidth > mMaxWidth) {
+                    dScaleWidth = getScaleFactor(mMinWidth, mMaxWidth);
+                } else {
+                    dScaleWidth = getScaleFactor(mMinWidth, measuredWidth);
+                }
+
+                if (measuredHeight > mMaxHeight) {
+                    dScaleHeight = getScaleFactor(mMinHeight, mMaxHeight);
+                } else {
+                    dScaleHeight = getScaleFactor(mMinHeight, measuredHeight);
+                }
+
+            } else if (mMaxWidth != NO_WIDTH && mMaxHeight != NO_WIDTH && mMaxHeight > 0) {
+                dScaleWidth = getScaleFactor(mMaxWidth, measuredWidth);
+                dScaleHeight = getScaleFactor(mMaxHeight, measuredHeight);
+            }
+
+            float scaleFactor = Math.min(dScaleHeight, dScaleWidth);
+            newWidth = (int) (mMinWidth * scaleFactor);
+            newHeight = (int) (mMinHeight * scaleFactor);
+        }
+
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(
+                newWidth,
+                MeasureSpec.getMode(widthMeasureSpec));
+
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(
+                newHeight,
+                MeasureSpec.getMode(heightMeasureSpec));
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private float getScaleFactor(int currentSize, int maxSize) {
+        float scaleFactor;
+
+        if (currentSize > maxSize) {
+            scaleFactor = (float) maxSize / (float) currentSize;
+        } else {
+            scaleFactor = (float) maxSize / (float) currentSize;
+        }
+
+        return scaleFactor;
     }
 }
