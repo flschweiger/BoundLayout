@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,12 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"/>
+            android:background="@color/colorPrimaryDark" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -30,8 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        app:keepAspectRatio="true"
+        app:maxHeight="@dimen/layout_max_height"
         app:maxWidth="@dimen/layout_max_width"
-        app:maxHeight="@dimen/layout_max_height">
+        app:minHeight="@dimen/layout_min_height_movie"
+        app:minWidth="@dimen/layout_min_width_movie">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -40,31 +42,37 @@
             app:cardElevation="@dimen/card_elevation"
             app:contentPadding="@dimen/card_content_padding">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rotate"
-                    android:textSize="@dimen/text_large"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="@string/lorem_ipsum"
-                    android:textSize="@dimen/text_normal"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center|bottom"
-                    android:src="@drawable/ic_device_screen_rotation"/>
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rotate"
+                        android:textSize="@dimen/text_large" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:text="@string/lorem_ipsum"
+                        android:textSize="@dimen/text_normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center|bottom"
+                        android:src="@drawable/ic_device_screen_rotation" />
+
+                </LinearLayout>
+
+            </ScrollView>
 
         </android.support.v7.widget.CardView>
 

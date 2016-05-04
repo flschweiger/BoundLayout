@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="layout_max_width">450dp</dimen>
+    <dimen name="layout_min_width_movie">300dp</dimen>
+    <dimen name="layout_min_height_movie">400dp</dimen>
+    <dimen name="layout_max_width">400dp</dimen>
     <dimen name="layout_max_height">400dp</dimen>
 
     <dimen name="card_margin">32dp</dimen>
-    <dimen name="card_content_padding">16dp</dimen>
+    <dimen name="card_content_padding">8dp</dimen>
     <dimen name="card_elevation">4dp</dimen>
 
     <dimen name="margin_normal">8dp</dimen>
